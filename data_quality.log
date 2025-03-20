@@ -1,0 +1,29 @@
+2025-03-19 21:00:07,821 - data_quality - INFO - Loaded configuration from data_quality_config.yaml
+2025-03-19 21:00:07,821 - dq-check - INFO - Loaded data quality configuration from data_quality_config.yaml
+2025-03-19 21:00:07,821 - dq-check - INFO - Loading data from CSV: transactions.csv
+2025-03-19 21:00:07,822 - dq-check - ERROR - Failed to load data from transactions.csv: [Errno 2] No such file or directory: 'transactions.csv'
+2025-03-19 21:00:07,822 - dq-check - ERROR - Failed to load data, aborting
+2025-03-19 21:02:06,121 - data_quality - INFO - Loaded configuration from data_quality_config.yaml
+2025-03-19 21:02:06,122 - dq-check - INFO - Loaded data quality configuration from data_quality_config.yaml
+2025-03-19 21:02:06,122 - dq-check - INFO - Loading data from CSV: transactions.csv
+2025-03-19 21:02:06,124 - dq-check - INFO - Loaded 15 rows and 6 columns
+2025-03-19 21:02:06,124 - dq-check - INFO - Running validation validation-20250319-210206
+2025-03-19 21:02:50,541 - data_quality - INFO - Loaded configuration from data_quality_config.yaml
+2025-03-19 21:02:50,541 - dq-check - INFO - Loaded data quality configuration from data_quality_config.yaml
+2025-03-19 21:02:50,541 - dq-check - INFO - Loading data from CSV: transactions.csv
+2025-03-19 21:02:50,543 - dq-check - INFO - Loaded 15 rows and 6 columns
+2025-03-19 21:02:50,543 - dq-check - INFO - Running validation validation-20250319-210250
+2025-03-19 21:02:50,543 - dq-check - INFO - Validation completed: PASS
+2025-03-19 21:02:50,543 - dq-check - INFO -   Total Rules: 0
+2025-03-19 21:02:50,543 - dq-check - INFO -   Passed Rules: 0
+2025-03-19 21:02:50,543 - dq-check - INFO -   Failed Rules: 0
+2025-03-19 21:03:36,742 - data_quality - INFO - Loaded configuration from data_quality_config.yaml
+2025-03-19 21:03:36,743 - dq-check - INFO - Loaded data quality configuration from data_quality_config.yaml
+2025-03-19 21:03:36,743 - dq-check - INFO - Loading data from CSV: transactions.csv
+2025-03-19 21:03:36,746 - dq-check - INFO - Loaded 15 rows and 6 columns
+2025-03-19 21:03:36,746 - dq-check - INFO - Running validation validation-20250319-210336
+2025-03-19 21:03:36,746 - dq-check - INFO - Validation completed: PASS
+2025-03-19 21:03:36,746 - dq-check - INFO -   Total Rules: 0
+2025-03-19 21:03:36,746 - dq-check - INFO -   Passed Rules: 0
+2025-03-19 21:03:36,746 - dq-check - INFO -   Failed Rules: 0
+2025-03-19 21:03:36,746 - dq-check - ERROR - No 'success' column found in results DataFrame.

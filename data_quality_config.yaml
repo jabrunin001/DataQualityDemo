@@ -1,0 +1,198 @@
+# Data Quality Configuration
+# This configuration defines rules for automated data quality checks
+
+# System Settings
+settings:
+  validation_output_dir: "validation_reports"
+  notification:
+    email_enabled: false
+    email_to: ["data.team@example.com"]
+    email_from: "data.quality@example.com"
+    smtp_server: "smtp.example.com"
+    smtp_port: 587
+    notify_on_failures_only: true
+
+# Data Quality Rules
+rules:
+  # Completeness Rules
+  - id: "completeness_customer_id"
+    type: "completeness"
+    description: "Customer ID should never be null"
+    columns: ["customer_id"]
+    threshold: 1.0
+    severity: "critical"
+
+  - id: "completeness_contact_info"
+    type: "completeness"
+    description: "At least 95% of customer contact information should be present"
+    columns: ["email", "phone"]
+    threshold: 0.95
+    severity: "high"
+
+  - id: "completeness_transaction_details"
+    type: "completeness"
+    description: "Transaction details should be at least 99% complete"
+    columns: ["transaction_date", "amount", "product_id"]
+    threshold: 0.99
+    severity: "high"
+
+  # Uniqueness Rules
+  - id: "uniqueness_customer_id"
+    type: "uniqueness"
+    description: "Customer IDs must be unique"
+    columns: ["customer_id"]
+    allow_nulls: false
+    threshold: 1.0
+    severity: "critical"
+
+  - id: "uniqueness_transaction_id"
+    type: "uniqueness"
+    description: "Transaction IDs must be unique"
+    columns: ["transaction_id"]
+    allow_nulls: false
+    threshold: 1.0
+    severity: "critical"
+
+  - id: "uniqueness_email"
+    type: "uniqueness"
+    description: "Customer emails should be unique"
+    columns: ["email"]
+    allow_nulls: true
+    threshold: 0.98
+    severity: "medium"
+
+  # Value Range Rules
+  - id: "range_transaction_amount"
+    type: "value_range"
+    description: "Transaction amounts should be positive and less than $10,000"
+    column: "amount"
+    min_value: 0
+    max_value: 10000
+    include_min: false
+    include_max: true
+    severity: "high"
+
+  - id: "range_customer_age"
+    type: "value_range"
+    description: "Customer age should be between 18 and 120"
+    column: "age"
+    min_value: 18
+    max_value: 120
+    severity: "medium"
+
+  - id: "range_product_price"
+    type: "value_range"
+    description: "Product price should be positive"
+    column: "price"
+    min_value: 0
+    include_min: false
+    severity: "high"
+
+  # Pattern Match Rules
+  - id: "pattern_email"
+    type: "pattern_match"
+    description: "Email addresses should have valid format"
+    column: "email"
+    pattern: "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
+    match_type: "fullmatch"
+    threshold: 0.99
+    severity: "medium"
+
+  - id: "pattern_phone"
+    type: "pattern_match"
+    description: "Phone numbers should have valid format"
+    column: "phone"
+    pattern: "^\\+?[0-9\\s\\-\\(\\)]{10,20}$"
+    match_type: "fullmatch"
+    threshold: 0.95
+    severity: "low"
+
+  - id: "pattern_product_sku"
+    type: "pattern_match"
+    description: "Product SKUs should follow standard format (ABC-12345)"
+    column: "product_sku"
+    pattern: "^[A-Z]{3}-[0-9]{5}$"
+    match_type: "fullmatch"
+    threshold: 1.0
+    severity: "medium"
+
+  # Statistical Rules
+  - id: "stat_transaction_amount_mean"
+    type: "statistical"
+    description: "Average transaction amount should be approximately $50"
+    column: "amount"
+    stat_type: "mean"
+    expected_value: 50
+    tolerance: 10
+    severity: "low"
+
+  - id: "stat_order_items_mean"
+    type: "statistical"
+    description: "Average number of items per order should be approximately 3"
+    column: "items_count"
+    stat_type: "mean"
+    expected_value: 3
+    tolerance: 1
+    severity: "low"
+
+  # Referential Integrity Rules
+  - id: "ref_int_product_id"
+    type: "referential_integrity"
+    description: "Product IDs must exist in the products table"
+    column: "product_id"
+    reference_data: "products"
+    reference_column: "id"
+    threshold: 1.0
+    severity: "high"
+
+  - id: "ref_int_customer_id"
+    type: "referential_integrity"
+    description: "Customer IDs must exist in the customers table"
+    column: "customer_id"
+    reference_data: "customers"
+    reference_column: "id"
+    threshold: 1.0
+    severity: "high"
+
+# Rule Groups for different contexts
+rule_groups:
+  transaction_validation:
+    - "completeness_transaction_details"
+    - "uniqueness_transaction_id"
+    - "range_transaction_amount"
+    - "ref_int_product_id"
+    - "ref_int_customer_id"
+    - "stat_transaction_amount_mean"
+
+  customer_validation:
+    - "completeness_customer_id"
+    - "completeness_contact_info"
+    - "uniqueness_customer_id"
+    - "uniqueness_email"
+    - "range_customer_age"
+    - "pattern_email"
+    - "pattern_phone"
+
+  product_validation:
+    - "uniqueness_product_id"
+    - "range_product_price"
+    - "pattern_product_sku"
+
+  # This group contains all data quality rules for full validation
+  full_validation:
+    - "completeness_customer_id"
+    - "completeness_contact_info"
+    - "completeness_transaction_details"
+    - "uniqueness_customer_id"
+    - "uniqueness_transaction_id"
+    - "uniqueness_email"
+    - "range_transaction_amount"
+    - "range_customer_age"
+    - "range_product_price"
+    - "pattern_email"
+    - "pattern_phone"
+    - "pattern_product_sku"
+    - "stat_transaction_amount_mean"
+    - "stat_order_items_mean"
+    - "ref_int_product_id"
+    - "ref_int_customer_id"
