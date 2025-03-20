@@ -383,7 +383,3 @@ with DAG('etl_with_quality_checks',
 5. **Monitor False Positives**: Refine rules that generate excessive alerts
 6. **Progressive Validation**: Apply different rule sets at different pipeline stages
 7. **Document Rules**: Add clear descriptions explaining each rule's purpose
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
